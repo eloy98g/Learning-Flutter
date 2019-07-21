@@ -102,8 +102,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         onPressed: () =>
-            buttonPressed(buttonText)
-        ,
+            buttonPressed(buttonText),
       ),
     );
   }

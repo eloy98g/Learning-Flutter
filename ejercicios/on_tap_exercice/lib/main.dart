@@ -3,68 +3,93 @@ import 'package:flutter/material.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Running taps!',
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Running Taps!'),
-        ),
-        body: ListView(
-          children: [
-            TabButton(),
-          ],
-        ),
+      title: 'Runnin taps!',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
       ),
+      home: HomePage(),
     );
   }
 }
 
-class TabButton extends StatefulWidget {
+class HomePage extends StatefulWidget{
   @override
-  _MyTabButton createState() =>_MyTabButton();
+  State<StatefulWidget> createState() => _HomePageState();
 }
 
-class _MyTabButton extends State<TabButton> {
-  int _counter = 0;
+class _HomePageState extends State<HomePage>{
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  Widget buildButton(String buttonText) {
+    return new Expanded(
+      child: new OutlineButton(
+        //padding: new EdgeInsets.symmetric(),
+        child: new Text(buttonText,
+          style: TextStyle(
+              fontSize: 20.0,
+              fontWeight: FontWeight.bold
+          ),
+        ),
+      ),
+    );
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
-        title: Text('Calculadora'),
+        title: Text('Running taps!'),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: EdgeInsets.all(16),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      body: new Container(
+        child: new Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
-            SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            new Row(
+              //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                MaterialButton(
-                  child: Text(
-                    '+',
-                    style: TextStyle(fontSize: 20, color: Colors.white),
-                  ),
-                  color: Colors.lightBlueAccent,
-                  onPressed: () => _incrementCounter()
-                ),
+                buildButton("Player 1"),
               ],
-             ),
+            ),
+            new Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                buildButton("Player 2"),
+              ],
+            ),
           ],
         ),
       ),
     );
   }
 }
+
+/*
+ @override
+  Widget build(BuildContext context){
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Running taps!'),
+        centerTitle: true,
+      ),
+      body: new Container(
+        child: new Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children:<Widget>[
+          new Column(
+
+            children:[
+              new Row( mainAxisAlignment: MainAxisAlignment.spaceEvenly,children: [
+                buildButton("Player 1"),
+              ]),
+              new Row( mainAxisAlignment: MainAxisAlignment.spaceEvenly,children: [
+                buildButton("Player 2"),
+              ]),
+              ]),
+            ],
+          ),
+      ),
+    );
+  }
+*/
