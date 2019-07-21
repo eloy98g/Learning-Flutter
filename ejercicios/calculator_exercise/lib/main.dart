@@ -31,6 +31,7 @@ class _HomePageState extends State<HomePage> {
   double num2 = 0.0;
   String operand = "";
   String operations = "";
+  String lastOp = "";
 
   buttonPressed(String buttonText){
 
@@ -46,6 +47,7 @@ class _HomePageState extends State<HomePage> {
       operand = buttonText;
       _output = "0";
       operations = operations + " " + buttonText + " ";
+      lastOp = buttonText;
 
     }else if(buttonText == "."){
       if(_output.contains(".")){
@@ -54,24 +56,29 @@ class _HomePageState extends State<HomePage> {
       }else {
         _output = _output + buttonText;
         operations = operations + buttonText;
+        lastOp = buttonText;
       }
     } else if (buttonText == "="){
       num2 = double.parse(output);
       if(operand == "+"){
         _output = (num1 + num2).toString();
         operations = _output;
+        lastOp = buttonText;
       }
       if(operand == "-"){
         _output = (num1 - num2).toString();
         operations = _output;
+        lastOp = buttonText;
       }
       if(operand == "x"){
         _output = (num1 * num2).toString();
         operations = _output;
+        lastOp = buttonText;
       }
       if(operand == "/"){
         _output = (num1 / num2).toString();
         operations = _output;
+        lastOp = buttonText;
       }
 
       num1 = 0.0;
@@ -79,14 +86,20 @@ class _HomePageState extends State<HomePage> {
       operand = "";
 
     }else{
-      _output = _output + buttonText;
-      operations = operations + buttonText;
+      if(lastOp == "="){ //resetea la salida para que no se unan los numeros
+        _output = buttonText;
+        operations = buttonText;
+      }else{
+        _output = _output + buttonText;
+        operations = operations + buttonText;
+      }
+      lastOp = buttonText;
     }
     print(_output);
     print(operations);
     setState(() {
       output = double.parse(_output).toStringAsFixed(2);
-      operations = operations;
+      //operations = operations;
     });
 
   }
@@ -183,3 +196,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+
+// TODO mejorar el sistema de decimales
+// TODO mejorar la consecución de operaciones
+// TODO añadir funcionalidad con paréntesis
