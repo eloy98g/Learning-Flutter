@@ -6,7 +6,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Runnin taps!',
+      title: 'On tap',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -40,7 +40,7 @@ class _HomePageState extends State<HomePage>{
   Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
-        title: Text('Running taps!'),
+        title: Text('On tap!'),
         centerTitle: true,
       ),
       body: new Container(
