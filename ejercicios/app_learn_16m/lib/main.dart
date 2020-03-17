@@ -3,75 +3,63 @@ import 'package:flutter/material.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'OnTap game: ejercicio',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'TappingButtons'),
+      home: HomePage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
-
+class HomePage extends StatefulWidget{
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State createState() => _HomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter1 = 0;
-  int _counter2 = 0;
+class _HomePageState extends State<HomePage>{
+  int contador1 = 0;
+  int contador2 = 0;
 
-  void _incrementCounter(_counter) {
-    setState(() {
-      _counter++;
-    });
+  Widget buildButton(int contador){
+    int _contador = contador;
+    return new OutlineButton(
+      child: new Text(contador.toString()),
+      onPressed:() => contador++,
+      //AQUI HAY QUE HACER UN SETSTATE PARA QUE SE ACTUALICE EL VALOR
+    );
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text('OnTap Game'),
+        centerTitle: true,
       ),
-      body: Center(
-        child: Column(
-          children:<Widget>[
-            Expanded(
-              child: Row(
-
-              )
-            )
-          ]
-        )
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.access_alarm),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
-  }
-}
-
-/*
-child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      body: new Container(
+        child: new Column(
           children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+            new Row(
+              children: <Widget>[
+                Expanded(
+                    child: buildButton(contador1),
+                ),
+              ],
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
+            new Row(
+              children: <Widget>[
+                Expanded(
+                  child: buildButton(contador2),
+                ),
+              ],
             ),
           ],
         ),
-* */
+      ),
+    );
+  }
+}
