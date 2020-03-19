@@ -24,14 +24,23 @@ class _HomePageState extends State<HomePage>{
   int contador1 = 0;
   int contador2 = 0;
 
-  Widget buildButton(int contador, Color player){
-    return new OutlineButton(
-      child: new Text(contador.toString()),
-      color: player,
-      onPressed:() =>setState((){
-        contador = contador++;
-      }),
-    );
+  Widget buildButton(int contador){
+    if(contador == 1){
+      return OutlineButton(
+        child: Text(contador1.toString()),
+        onPressed:() => setState((){
+          contador1++;
+        }),
+      );
+    }else if(contador == 2){
+      return OutlineButton(
+        child: Text(contador2.toString()),
+        onPressed:() => setState((){
+          contador2++;
+        }),
+      );
+    }
+
   }
 
   /*Widget buttonPressed(int contador){
@@ -54,11 +63,16 @@ class _HomePageState extends State<HomePage>{
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Expanded(
-
-            child: buildButton(contador1, Colors.green),
+            child: Container(
+              color: Colors.green,
+              child: buildButton(1),
+            )
           ),
           Expanded(
-            child: buildButton(contador2, Colors.yellow),
+              child: Container(
+                color: Colors.yellow,
+                child: buildButton(2),
+              )
           ),
         ],
       )

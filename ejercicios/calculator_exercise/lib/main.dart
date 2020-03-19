@@ -42,7 +42,8 @@ class _HomePageState extends State<HomePage> {
       operand = "";
       operations = "";
 
-    }else if (buttonText == "+" || buttonText == "-" || buttonText == "/" || buttonText == "x"){
+    }else if (buttonText == "+" || buttonText == "-"
+        || buttonText == "/" || buttonText == "x"){
       num1 = double.parse(output);
       operand = buttonText;
       _output = "0";
