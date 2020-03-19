@@ -24,14 +24,23 @@ class _HomePageState extends State<HomePage>{
   int contador1 = 0;
   int contador2 = 0;
 
-  Widget buildButton(int contador){
-    int _contador = contador;
+  Widget buildButton(int contador, Color player){
     return new OutlineButton(
       child: new Text(contador.toString()),
-      onPressed:() => contador++,
-      //AQUI HAY QUE HACER UN SETSTATE PARA QUE SE ACTUALICE EL VALOR
+      color: player,
+      onPressed:() =>setState((){
+        contador = contador++;
+      }),
     );
   }
+
+  /*Widget buttonPressed(int contador){
+    int _contador = contador;
+
+    setState((){
+      contador = _contador++;
+    });
+  }*/
 
   @override
   Widget build(BuildContext context){
@@ -40,22 +49,19 @@ class _HomePageState extends State<HomePage>{
         title: Text('OnTap Game'),
         centerTitle: true,
       ),
-      body: Expanded(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-          Container(
-            height: MediaQuery.of(context).size.height/2,
-            width: MediaQuery.of(context).size.width,
-            color: Colors.red,
+      body:Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Expanded(
+
+            child: buildButton(contador1, Colors.green),
           ),
-          Container(
-            height: MediaQuery.of(context).size.height/2,
-            width: MediaQuery.of(context).size.width,
-            color: Colors.green,
+          Expanded(
+            child: buildButton(contador2, Colors.yellow),
           ),
-        ]),
-      ),
+        ],
+      )
     );
   }
 }
