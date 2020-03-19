@@ -40,25 +40,21 @@ class _HomePageState extends State<HomePage>{
         title: Text('OnTap Game'),
         centerTitle: true,
       ),
-      body: new Container(
-        child: new Column(
+      body: Expanded(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            new Row(
-              children: <Widget>[
-                Expanded(
-                    child: buildButton(contador1),
-                ),
-              ],
-            ),
-            new Row(
-              children: <Widget>[
-                Expanded(
-                  child: buildButton(contador2),
-                ),
-              ],
-            ),
-          ],
-        ),
+          Container(
+            height: MediaQuery.of(context).size.height/2,
+            width: MediaQuery.of(context).size.width,
+            color: Colors.red,
+          ),
+          Container(
+            height: MediaQuery.of(context).size.height/2,
+            width: MediaQuery.of(context).size.width,
+            color: Colors.green,
+          ),
+        ]),
       ),
     );
   }
