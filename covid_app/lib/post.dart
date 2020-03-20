@@ -11,7 +11,7 @@ class Post{
     this.body,
   });
 
-  factory Post.fromJSON(Map<String, dynamic> json){
+  factory Post.fromJson(Map<String, dynamic> json){
     return Post(
       userID: json["userID"],
       id: json["id"],
