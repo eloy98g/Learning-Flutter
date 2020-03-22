@@ -21,7 +21,7 @@ class Aplicacion extends StatelessWidget{
 }
 
 Future<List<Post>> cargar()async{
-  final respuesta = await http.get('https://jsonplaceholder.typicode.com/posts/');
+  final respuesta = await http.get('https://thevirustracker.com/free-api?global=stats');
 
   if(respuesta.statusCode == 200){
     return (json.decode(respuesta.body) as List).map((post) => Post.fromJson(post)).toList();
