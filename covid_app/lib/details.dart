@@ -10,11 +10,11 @@ class PostDetails extends StatelessWidget{
   Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
-        title: Text(post.title),
+       // title: Text(post.title),
         backgroundColor: Colors.green,
       ),
       body: Center(
-        child: Card(
+        child: Card(/*
           child: Column(
             children: <Widget>[
               Row(
@@ -25,7 +25,7 @@ class PostDetails extends StatelessWidget{
               Text(post.title),
               Text(post.body),
             ],
-          )
+          )*/
         )
       )
     );
