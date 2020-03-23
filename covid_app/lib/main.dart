@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:covidapp/post.dart';
@@ -11,6 +12,8 @@ void main(){
   runApp(Aplicacion());
 }
 
+var debug;
+
 class Aplicacion extends StatelessWidget{
   @override
   Widget build(BuildContext context){
@@ -21,7 +24,7 @@ class Aplicacion extends StatelessWidget{
   }
 }
 
-/*
+
 Future<List<Post>> cargar()async{
   final respuesta = await http.get('https://thevirustracker.com/free-api?countryTotal=US');
 
@@ -29,21 +32,16 @@ Future<List<Post>> cargar()async{
   if(respuesta.statusCode == 200){
     return (json.decode(respuesta.body) as List).map((post) => Post.fromJson(post)).toList();
   }else{
-    throw Exception('Fallo al cargar datos');
+    //debug = throw Exception('Error al cargar los datos');
+    debug = respuesta.statusCode;
   }
-}*/
-
-Future<Post> cargar() async {
-  final respuesta = await http.get('https://thevirustracker.com/free-api?countryTotal=US');
-
-  return Post.fromJson(json.decode(respuesta.body));
-
 }
-/*
+
+
 class Inicio extends StatelessWidget{
   Widget renderizar(BuildContext context,  AsyncSnapshot<List<Post>> snapshot){
     if(snapshot.hasError){
-      return Text('Error!');
+      return Text(debug.toString());
     }else if(snapshot.hasData){
       return ListView.separated(
           itemBuilder: (context, i){
@@ -64,25 +62,8 @@ class Inicio extends StatelessWidget{
           },
           itemCount: snapshot.data.length,
       );
-    }
-  }*/
-
-class Inicio extends StatelessWidget{
-  Widget renderizar(BuildContext context,  AsyncSnapshot<Post> snapshot){
-    final Post post = snapshot.data;
-    if(snapshot.hasError){
-      return Text('Error!');
-    }else if(snapshot.hasData){
-      return ListTile(
-          leading: Flags.getFullFlag('ES', null, null),
-          title: Text(snapshot.data.countrydata.info.title),
-          onTap: (){
-            return Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => PostDetails(post)),
-            );
-          }
-      );
+    }else{
+      return CircularProgressIndicator();
     }
   }
 
@@ -94,10 +75,10 @@ class Inicio extends StatelessWidget{
           backgroundColor: Colors.green,
         ),
         body: Center(
-            child: FutureBuilder<Post>(
-              builder: renderizar,
-              future: cargar(),
-            )
+          child: FutureBuilder<List<Post>>(
+            builder: renderizar,
+            future: cargar(),
+          )
         )
     );
   }
