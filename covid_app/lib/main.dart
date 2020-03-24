@@ -1,11 +1,13 @@
 import 'dart:convert';
-
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+//import 'package:http/http.dart' show Client;
 import 'package:covidapp/post.dart';
 import 'package:flag/flag.dart';
 import 'package:covidapp/details.dart';
+
+import 'dart:async' show Future;
+import 'package:flutter/services.dart' show rootBundle;
 
 
 void main(){
@@ -24,20 +26,32 @@ class Aplicacion extends StatelessWidget{
   }
 }
 
-
+/*
 Future<List<Post>> cargar()async{
   final respuesta = await http.get('https://thevirustracker.com/free-api?countryTotal=US');
-
+  print('[http.get done]');
+  print('respuesta: $respuesta');
 
   if(respuesta.statusCode == 200){
     return (json.decode(respuesta.body) as List).map((post) => Post.fromJson(post)).toList();
   }else{
     //debug = throw Exception('Error al cargar los datos');
-    debug = respuesta.statusCode;
+    if(respuesta.statusCode == 200){
+      debug = 'json null';
+    }else{
+      debug = respuesta.statusCode;
+    }
   }
+}*/
+
+Future<Global> cargar()async{
+  final respuesta = await http.get('https://thevirustracker.com/free-api?global=stats');
+
+  Global post = Global.fromJson(json.decode(respuesta.body));
+  return post;
 }
 
-
+/*
 class Inicio extends StatelessWidget{
   Widget renderizar(BuildContext context,  AsyncSnapshot<List<Post>> snapshot){
     if(snapshot.hasError){
@@ -79,6 +93,43 @@ class Inicio extends StatelessWidget{
             builder: renderizar,
             future: cargar(),
           )
+        )
+    );
+  }
+}
+ */
+
+class Inicio extends StatelessWidget{
+  Widget renderizar(BuildContext context,  AsyncSnapshot<Global> snapshot){
+    if(snapshot.hasError){
+      return Text('Error!');
+    }else if(snapshot.hasData){
+      final Global post = snapshot.data;
+      int total_cases = post.results.totalCases;
+      print(snapshot.toString());
+      print(total_cases);
+      return Column(
+        children: <Widget>[
+          Text('Total casos: $total_cases'),
+        ],
+      );
+    }else{
+      return CircularProgressIndicator();
+    }
+  }
+
+  @override
+  Widget build(BuildContext context){
+    return Scaffold(
+        appBar: AppBar(
+          title: Text('CoVid-19 App'),
+          backgroundColor: Colors.green,
+        ),
+        body: Center(
+            child: FutureBuilder<Global>(
+              builder: renderizar,
+              future: cargar(),
+            )
         )
     );
   }

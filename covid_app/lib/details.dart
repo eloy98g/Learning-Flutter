@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:covidapp/post.dart';
 import 'package:flutter/cupertino.dart';
 
-class PostDetails extends StatelessWidget{
+/*class PostDetails extends StatelessWidget{
   final Post post;
 
   PostDetails(this.post);
@@ -14,7 +14,7 @@ class PostDetails extends StatelessWidget{
         backgroundColor: Colors.green,
       ),
       body: Center(
-        child: Card(/*
+        child: Card(
           child: Column(
             children: <Widget>[
               Row(
@@ -25,9 +25,9 @@ class PostDetails extends StatelessWidget{
               Text(post.title),
               Text(post.body),
             ],
-          )*/
+          )
         )
       )
     );
   }
-}
+}*/
