@@ -105,7 +105,7 @@ class Inicio extends StatelessWidget{
       return Text('Error!');
     }else if(snapshot.hasData){
       final Global post = snapshot.data;
-      int total_cases = post.results.totalCases;
+      int total_cases = post.results[0].totalCases;
       print(snapshot.toString());
       print(total_cases);
       return Column(

@@ -107,8 +107,8 @@ class Countrynewsitems {
 
 
 class Global{
-  Results results;
-  String stat;
+  final List<Results> results;
+  final String stat;
 
   Global({
     this.results,
@@ -116,23 +116,28 @@ class Global{
   });
 
   factory Global.fromJson(Map<String, dynamic> json){
+
+    var list = json['results'] as List;
+    print(list.runtimeType); //returns List<dynamic>
+    List<Results> resultsList = list.map((i) => Results.fromJson(i)).toList();
+
     return Global(
-      results: Results.fromJson(json['results']),
+      results: resultsList,
       stat: json['stat'],
     );
   }
 }
 
 class Results{
-  int totalCases;
-  int total_recovered;
-  int total_unresolved;
-  int total_deaths;
-  int total_new_cases_today;
-  int total_new_deaths_today;
-  int total_active_cases;
-  int total_serius_cases;
-  Source source;
+  final int totalCases;
+  final int total_recovered;
+  final int total_unresolved;
+  final int total_deaths;
+  final int total_new_cases_today;
+  final int total_new_deaths_today;
+  final int total_active_cases;
+  final int total_serius_cases;
+  final Source source;
 
   Results({
     this.totalCases,
@@ -162,7 +167,7 @@ class Results{
 }
 
 class Source{
-  String url;
+  final String url;
 
   Source({
     this.url,
